@@ -19,15 +19,19 @@ android {
 }
 
 dependencies {
-
+//    compile 'javax.xml.bind:jaxb-api:2.2.1'
+//    compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.2.11'
+//    compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.2.11'
+//    compile group: 'com.sun.xml.bind', name: 'jaxb-xjc', version: '2.2.11'
+//    compile 'javax.xml.stream:stax-api:+'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+    compile 'com.android.support:support-annotations:27.0.1'
+    compile 'com.android.support:support-annotations:23.1.1'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
-    compile 'javax.xml.bind:jaxb-api:+'
-    compile 'javax.xml.stream:stax-api:+'
-    compile 'com.google.android.gms:play-services:9.2.0'
-    compile 'com.google.android.gms:play-services-location:9.2.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
 }

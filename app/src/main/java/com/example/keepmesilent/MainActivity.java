@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     parsePOI poi;
     int ringmode;
     boolean ringmodeFlag;
-    AudioManager audiomanage ;
+    AudioManager audiomanage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         GPSValue = (TextView) findViewById(R.id.GpsValeus);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        audiomanage = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        audiomanage = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         StrictMode.setThreadPolicy(policy);
         toggleGPSUpdates();
-         poi = parsePOI.getInstance();
+        poi = parsePOI.getInstance();
     }
 
 
@@ -76,66 +76,65 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toggleGPSUpdates() {
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER, 2 * 1 * 1000, 10, locationListenerGPS);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER, 2 * 1 * 1000, 10, locationListenerGPS);
 
     }
 
-    private final LocationListener locationListenerGPS = new LocationListener() {
-        public void onLocationChanged(Location location) {
-            longitudeGPS = location.getLongitude();
-            latitudeGPS = location.getLatitude();
+    private final LocationListener locationListenerGPS;
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Poi MyPoi = poi.getPoi(new com.example.keepmesilent.data.Location (latitudeGPS,longitudeGPS));
-                    if (MyPoi != null){
-                    GPSValue.setText(MyPoi.getName() );
-                        ringmode =audiomanage.getRingerMode();
-                         ringmodeFlag=true;
-                        audiomanage.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+    {
+        locationListenerGPS = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                longitudeGPS = location.getLongitude();
+                latitudeGPS = location.getLatitude();
 
-                    }
-
-                    else{
-                        GPSValue.setText("not in POI " );
-                        if (  ringmodeFlag) {
-                            audiomanage.setRingerMode(ringmode);
-                             ringmodeFlag = false ;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (poi.getPois() == null ||poi.getPois().size()==0) {
+                            poi.updatePOI("movie_theater",new  com.example.keepmesilent.data.Location(latitudeGPS, longitudeGPS));
                         }
+
+                        Poi MyPoi = poi.getPoi(new com.example.keepmesilent.data.Location(latitudeGPS, longitudeGPS));
+                        if (MyPoi != null) {
+                            GPSValue.setText(MyPoi.getName());
+                            ringmode = audiomanage.getRingerMode();
+                            ringmodeFlag = true;
+                            audiomanage.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+
+                        } else {
+                            GPSValue.setText("not in POI ");
+                            if (ringmodeFlag) {
+                                audiomanage.setRingerMode(ringmode);
+                                ringmodeFlag = false;
+                            }
+                        }
+                        Toast.makeText(MainActivity.this, "GPS Provider update", Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(MainActivity.this, "GPS Provider update", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+                });
+            }
 
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
 
-        }
+            }
 
-        @Override
-        public void onProviderEnabled(String s) {
+            @Override
+            public void onProviderEnabled(String s) {
 
-        }
+            }
 
-        @Override
-        public void onProviderDisabled(String s) {
+            @Override
+            public void onProviderDisabled(String s) {
 
-        }
-    };
+            }
+        };
+    }
 
 
 }

@@ -38,6 +38,7 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
                 android:text="SilentPlaces"
+
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         </LinearLayout>
@@ -48,6 +49,8 @@
             android:layout_height="47dp"
             android:layout_weight="1"
             app:srcCompat="@android:drawable/ic_lock_power_off"
+            android:textOn="ON"
+            android:textOff="OFF"
             android:onClick="OnOffButtonClicked"/>
     </LinearLayout>
 

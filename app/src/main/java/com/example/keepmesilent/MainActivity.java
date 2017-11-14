@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPref = getSharedPreferences("mySettings", MODE_PRIVATE);
         toggleGPSUpdates();
         poi = parsePOI.getInstance();
+        restoreData();
 
     }
 
@@ -57,6 +58,20 @@ public class MainActivity extends AppCompatActivity {
         if (!isLocationEnabled())
             showAlert();
         return isLocationEnabled();
+    }
+
+    private void restoreData(){
+            ( (ToggleButton)findViewById(R.id.OnOffButton)).setChecked(sharedPref.getBoolean("OnOffButton", false));
+            ( (CheckBox)findViewById(R.id.GalleriesBtn)).setChecked(sharedPref.getBoolean("Galleries", false));
+            ( (CheckBox)findViewById(R.id.CinemasBtn)).setChecked(sharedPref.getBoolean("Cinemas", false));
+        ( (CheckBox)findViewById(R.id.CalendarBtn)).setChecked(sharedPref.getBoolean("Calendar", false));
+        ( (CheckBox)findViewById(R.id.ReligiousBtn)).setChecked(sharedPref.getBoolean("Religious", false));
+        ( (CheckBox)findViewById(R.id.LibraryBtn)).setChecked(sharedPref.getBoolean("Library", false));
+        ( (CheckBox)findViewById(R.id.MySpotsBtn)).setChecked(sharedPref.getBoolean("MySpots", false));
+        ( (CheckBox)findViewById(R.id.NotifyCB)).setChecked(sharedPref.getBoolean("Notify", false));
+        ( (CheckBox)findViewById(R.id.AutoReplyCB)).setChecked(sharedPref.getBoolean("AutoReply", false));
+        ( (CheckBox)findViewById(R.id.VibrateCB)).setChecked(sharedPref.getBoolean("Vibarate", false));
+
     }
 
     private void showAlert() {

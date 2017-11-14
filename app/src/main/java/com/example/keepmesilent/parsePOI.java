@@ -1,5 +1,8 @@
 package com.example.keepmesilent;
 
+
+import android.content.SharedPreferences;
+
 import com.example.keepmesilent.data.Location;
 import com.example.keepmesilent.data.Poi;
 import com.example.keepmesilent.data.PoiList;
@@ -19,29 +22,31 @@ public class parsePOI {
 
 	private static parsePOI instance = null;
 	private  Map<Location, Poi> pois = new HashMap<Location, Poi>();
+   ;
 
 
-
-    public void updatePOI (String POITypes,com.example.keepmesilent.data.Location location ) {
+    public void updatePOI ( SharedPreferences sharedPref,com.example.keepmesilent.data.Location location ) {
         //"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=31.513207,34.6033558&radius=500000&type=movie_theater&key=AIzaSyBAQeoCvI_wnoL1lmkOP1f7nuw009q5yYI"
         String URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=";
         String radious = "radius=5000000";
         String key = "key=AIzaSyBAQeoCvI_wnoL1lmkOP1f7nuw009q5yYI";
         String uri;
+        SharedPreferences.Editor editor = sharedPref.edit();
+        pois.clear();
 
-        if (POITypes.contains("movie_theater")) {
+        if (sharedPref.getBoolean("Cinemas",false)) {
             uri = URL + location.getLat() + "," + location.getLng() + "&" + radious + "&type=movie_theater&" + key;
             UpdatePois(uri);
         }
-        if (POITypes.contains("museum")) {
+        if (sharedPref.getBoolean("Galleries",false)) {
             uri = URL + location.getLat() + "," + location.getLng() + "&" + radious + "&type=museum&" + key;
             UpdatePois(uri);
         }
-        if (POITypes.contains("church")) {
+        if (sharedPref.getBoolean("Religious",false)) {
             uri = URL + location.getLat() + "," + location.getLng() + "&" + radious + "&type=church&" + key;
             UpdatePois(uri);
         }
-        if (POITypes.contains("synagogue")) {
+        if (sharedPref.getBoolean("Religious",false)) {
             uri = URL + location.getLat() + "," + location.getLng() + "&" + radious + "&type=synagogue&" + key;
             UpdatePois(uri);
         }

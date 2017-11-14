@@ -85,9 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 .setMessage("We spotted your location as "+ poiName +"\n Do you want to move to silent mode?")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivity(myIntent);
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {goSilent();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -135,16 +133,11 @@ public class MainActivity extends AppCompatActivity {
 
                                 Poi MyPoi = poi.getPoi(new com.example.keepmesilent.data.Location(latitudeGPS, longitudeGPS));
                                 if (MyPoi != null) {
-                                    //   GPSValue.setText(MyPoi.getName());
-                                    ringmode = audiomanage.getRingerMode();
-                                    ringmodeFlag = true;
-                                    if (sharedPref.getBoolean("VibrateCB", false)) {
-                                        audiomanage.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                                    }
-                                    else {
-                                        audiomanage.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                                    }
-
+                               if (sharedPref.getBoolean("Notify", false)){
+                                   showNotify(MyPoi.getName());
+                               }else {
+                                   goSilent();
+                               }
                                 } else {
                                     //    GPSValue.setText("not in POI ");
                                     if (ringmodeFlag) {
@@ -172,6 +165,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "GPS Provider Disabled", Toast.LENGTH_SHORT).show();
             }
         };
+    }
+
+    private void goSilent() {
+        ringmode = audiomanage.getRingerMode();
+        ringmodeFlag = true;
+        if (sharedPref.getBoolean("Vibrate", false)) {
+            audiomanage.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+        }
+        else {
+            audiomanage.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+        }
     }
 
     public void onRadioButtonClicked(View view) {

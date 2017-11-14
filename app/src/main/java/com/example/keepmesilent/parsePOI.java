@@ -69,11 +69,11 @@ public class parsePOI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (Poi p : poiList.getResults())
-        {
-            pois.put(p.getGeometry().getLocation(), p);
+        if  (poiList != null ) {
+            for (Poi p : poiList.getResults()) {
+                    pois.put(p.getGeometry().getLocation(), p);
+            }
         }
-
 
     }
 

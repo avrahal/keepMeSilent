@@ -66,29 +66,29 @@
             android:background="#29A9D2"
             android:orientation="horizontal">
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/GalleriesBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Galleries"
-                android:onClick="onRadioButtonClicked"/>
+                android:onClick="onCheckBoxClicked"/>
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/CinemasBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Cinemas"
-                android:onClick="onRadioButtonClicked"/>
+                android:onClick="onCheckBoxClicked"/>
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/ReligiousBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Religious"
-                android:onClick="onRadioButtonClicked" />
+                android:onClick="onCheckBoxClicked" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,14 +98,27 @@
             android:background="#29A9D2"
             android:orientation="horizontal">
 
-            <RadioButton
+            <CheckBox
+                android:id="@+id/CalendarBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Calendar"
+                android:onClick="onCheckBoxClicked"/>
+            <CheckBox
+                android:id="@+id/LibraryBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Library"
+                android:onClick="onCheckBoxClicked"/>
+            <CheckBox
                 android:id="@+id/MySpotsBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="My Spots"
-                android:onClick="onRadioButtonClicked"/>
-
+                android:onClick="onCheckBoxClicked"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -176,7 +189,8 @@
         android:layout_width="match_parent"
         android:layout_height="135dp"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/hackathon">
 
     </LinearLayout>
 
@@ -187,7 +201,7 @@
         android:gravity="bottom|right"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <!--LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -199,9 +213,8 @@
                 android:layout_height="42dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="Save My Place" />
-        </LinearLayout>
+                android:gravity="right|center" />
+        </LinearLayout-->
 
         <LinearLayout
             android:layout_width="179dp"
@@ -210,12 +223,13 @@
             android:gravity="right"
             android:orientation="horizontal">
 
-            <ImageButton
+            <Button
                 android:id="@+id/pinCurrentLocationBtn"
                 android:layout_width="74dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@android:drawable/btn_star_big_on" />
+                android:background="@android:drawable/ic_dialog_map"
+                android:text="Add Location" />
         </LinearLayout>
 
     </LinearLayout>
